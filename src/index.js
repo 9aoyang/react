@@ -2,56 +2,56 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 
-class Title extends Component {
-  handleClickOnTitle (word, e) {
-    console.log (this, word)
+class LikeButton extends Component {
+
+  constructor() {
+    super()
+    this.state = { isLiked: false }
+  }
+
+  handleOnClickButton () {
+    this.setState ({
+      isLiked : !this.state.isLiked
+    })
   }
 
   render () {
     return (
-      <h1 onClick={this.handleClickOnTitle.bind(this, 'hello')}>He1lo React</h1>
+      <button onClick={this.handleOnClickButton.bind(this)}>
+        {this.state.isLiked ? this.props.likedText : this.props.unlikedText} 👍
+      </button>
     )
   }
 }
 
-class Header extends Component {
-  render () {
-    return (
-      <div>
-        <Title />
-        <h2>This is Header</h2>
-      </div>
-    )
-  }
-}
-
-class Main extends Component {
-  render () {
-    return (
-      <div>
-        <h2>This is main content</h2>
-      </div>
-    )
-  }
-}
-
-class Footer extends Component {
-  render () {
-    return (
-      <div>
-        <h2>This is footer</h2>
-      </div>
-    )
-  }
+LikeButton.defaultProps = {
+  likedText: '取消',
+  unlikedText: '点赞'
 }
 
 class Index extends Component {
+  constructor () {
+    super()
+    this.state = {
+      likedText: '取消',
+      unlikedText: '点赞'
+    }
+  }
+
+  handleOnClickChange () {
+    this.setState({
+      likedText: '已赞',
+      unlikedText: '赞'
+    })
+  }
+
   render () {
     return (
       <div>
-        <Header />
-        <Main />
-        <Footer />
+        <LikeButton
+          likedText = {this.state.likedText}
+          unlikedText = {this.state.unlikedText} />
+        <button onClick={this.handleOnClickChange.bind(this)}>修改点赞文案</button>
       </div>
     )
   }
