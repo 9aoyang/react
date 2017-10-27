@@ -2,56 +2,36 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 
-class LikeButton extends Component {
+const users = [
+  { username: 'Jerry', age: 21, gender: 'male' },
+  { username: 'Tomy', age: 22, gender: 'male' },
+  { username: 'Lily', age: 19, gender: 'female' },
+  { username: 'Lucy', age: 20, gender: 'female' }
+]
 
-  constructor() {
-    super()
-    this.state = { isLiked: false }
-  }
-
-  handleOnClickButton () {
-    this.setState ({
-      isLiked : !this.state.isLiked
-    })
-  }
-
+class User extends Component {
   render () {
+    const { user: {
+      username,
+      age,
+      gender
+    } } = this.props
     return (
-      <button onClick={this.handleOnClickButton.bind(this)}>
-        {this.state.isLiked ? this.props.likedText : this.props.unlikedText} 👍
-      </button>
+      <div>
+        <div>name: {username}</div>
+        <div>age: {age}</div>
+        <div>gender: {gender}</div>
+        <hr/>
+      </div>
     )
   }
 }
 
-LikeButton.defaultProps = {
-  likedText: '取消',
-  unlikedText: '点赞'
-}
-
 class Index extends Component {
-  constructor () {
-    super()
-    this.state = {
-      likedText: '取消',
-      unlikedText: '点赞'
-    }
-  }
-
-  handleOnClickChange () {
-    this.setState({
-      likedText: '已赞',
-      unlikedText: '赞'
-    })
-  }
-
   render () {
     return (
       <div>
-        <LikeButton
-          likedText = {this.state.likedText}
-          unlikedText = {this.state.unlikedText} />
-        <button onClick={this.handleOnClickChange.bind(this)}>修改点赞文案</button>
+        { users.map( (user, i) => <User key={i} user={user}/> ) }
       </div>
     )
   }
@@ -61,3 +41,5 @@ ReactDOM.render(
   <Index />,
   document.getElementById('root')
 )
+
+
